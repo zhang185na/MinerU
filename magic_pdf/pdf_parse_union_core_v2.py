@@ -77,11 +77,11 @@ def chars_to_content(span):
         char_avg_width = char_width_sum / len(span['chars'])
 
         content = ''
-        for char in span['chars']:
+        for i in range(1, len(span['chars'])):
             # 如果下一个char的x0和上一个char的x1距离超过一个字符宽度，则需要在中间插入一个空格
-            if char['bbox'][0] - span['chars'][span['chars'].index(char) - 1]['bbox'][2] > char_avg_width:
+            if span['chars'][i]['bbox'][0] - span['chars'][i - 1]['bbox'][2] > char_avg_width:
                 content += ' '
-            content += char['c']
+            content += span['chars'][i]['c']
 
         span['content'] = __replace_0xfffd(content)
 
